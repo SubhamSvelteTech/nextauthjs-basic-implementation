@@ -1,20 +1,20 @@
 import { getServerSession } from "next-auth";
-import Login from "./Login";
 import { AuthOptions } from "@/lib/auth";
+import Login from "./Login";
 
 export default async function Home() {
-  const session: any = await getServerSession(AuthOptions);
+  const session = await getServerSession(AuthOptions);
   if (session) {
     console.log("session exists session => ", session);
   }
 
   return (
     <>
-      {session == null && (
+      {session == null ? (
         <div className="flex flex-col h-screen">
           <Login />
         </div>
-      )}
+      ): <div>Authenticated</div>}
     </>
   );
 }
